@@ -1,0 +1,5 @@
+wheel
+setuptools
+sanic
+pymongo
+dnspython

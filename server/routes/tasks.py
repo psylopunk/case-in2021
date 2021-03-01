@@ -78,7 +78,6 @@ async def edit(request, json={}):
 
     return Task.from_id(json['id']).get_json()
 
-
 @app.route('/api/tasks.get', methods=['GET'])
 @response_compile()
 async def get(request, json={}):
@@ -91,22 +90,26 @@ async def get(request, json={}):
     else:
         selected_user = user
 
+    query = {
+        0: {
+            'employer_id' if selected_user.get_depth() in [0, 1] else 'employee_id': selected_user.id
+        } if 'userId' in json else {},
+        1: {
+            'employee_id': selected_user.id,
+            'employer_id': user.id
+        } if 'userId' in json else {
+            'employer_id': selected_user.id
+        },
+        2: {
+            'employee_id': selected_user.id
+        }
+    }[user.get_depth()]
+    if 'status' in json:
+        query['status'] = json['status']
+
     return [
         Task(task_object).get_json() for task_object in db.tasks.find(
-            {
-                0: {
-                    'employer_id' if selected_user.get_depth() in [0, 1] else 'employee_id': selected_user.id
-                } if 'userId' in json else {},
-                1: {
-                    'employee_id': selected_user.id,
-                    'employer_id': user.id
-                } if 'userId' in json else {
-                    'employer_id': selected_user.id
-                },
-                2: {
-                    'employee_id': selected_user.id
-                }
-            }[user.get_depth()]
+            query
         ).sort("modified", -1).skip(
             json["offset"] if "offset" in json else 0
         ).limit(

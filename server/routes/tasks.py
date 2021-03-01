@@ -4,6 +4,7 @@ from .response_compile import response_compile
 from models import User, Task
 from functions import load_auth, create_task, from_isoformat
 from sanic import response
+from datetime import datetime
 
 @app.route('/api/tasks.create', methods=['POST'])
 @response_compile(required_fields=[
@@ -23,6 +24,60 @@ async def create(request, json={}):
     )
 
     return created_task.get_json()
+
+@app.route('/api/tasks.edit', methods=['POST'])
+@response_compile(required_fields=['id'])
+async def edit(request, json={}):
+    user = load_auth(request)
+    selected_task = Task.from_id(json['id'])
+
+    if user.get_depth() == 2 and not user.id == selected_task.employee.id:
+        raise Exception('Это задание не предназначено для Вас')
+    if user.get_depth() == 1 and not user.id == selected_task.employer.id:
+        raise Exception('Это задание создали не Вы')
+
+    updates = {}
+    for key in [
+        'title', 'description', 'difficulty', 'deadline', 'status'
+    ]:
+        if key in json:
+            value = json[key]
+
+            if key == 'deadline':
+                try:
+                    value = from_isoformat(value)
+                except Exception as e:
+                    raise Exception('Указан неверный дедлайн')
+            elif key == 'status':
+                if value not in ['created', 'accepted', 'rejected', 'completed']:
+                    raise Exception('Недопустимый статус')
+
+                STATUS_VARIANTS = {'created': 0, 'accepted': 1, 'rejected': 1, 'completed': 2}
+
+                if STATUS_VARIANTS[value] <= STATUS_VARIANTS[selected_task.status]:
+                    raise Exception('Задача не может быть изменена в обратную сторону')
+            elif key == 'difficulty':
+                if not (0 <= value <= 1):
+                    raise Exception('Сложность должна быть от 0 до 1')
+
+            if user.get_depth() == 2 and user.id == selected_task.employee.id:
+                if key in ['status']:
+                    updates[key] = value
+            elif (user.get_depth() == 1 and user.id == selected_task.employer.id) or user.get_depth() == 0:
+                if key in ['title', 'description', 'difficulty', 'deadline', 'status']:
+                    updates[key] = value
+
+            updates[key] = value
+
+    updates['modified'] = datetime.now()
+    db.tasks.update_one({
+        '_id': selected_task._id
+    }, {
+        '$set': updates
+    })
+
+    return Task.from_id(json['id']).get_json()
+
 
 @app.route('/api/tasks.get', methods=['GET'])
 @response_compile()

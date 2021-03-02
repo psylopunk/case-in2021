@@ -1,1 +1,1 @@
-from .tasks import app
+from .chatbot import app

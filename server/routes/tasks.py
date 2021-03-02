@@ -111,8 +111,8 @@ async def get(request, json={}):
         Task(task_object).get_json() for task_object in db.tasks.find(
             query
         ).sort("modified", -1).skip(
-            json["offset"] if "offset" in json else 0
+            int(json["offset"]) if "offset" in json else 0
         ).limit(
-            json["limit"] if "limit" in json else 100
+            int(json["limit"]) if "limit" in json else 100
         )
     ]

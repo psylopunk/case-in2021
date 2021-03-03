@@ -21,4 +21,9 @@
     <string name="password">Пароль</string>
     <string name="signIn">Войти</string>
     <string name="addChild">Добавить сотрудника</string>
+    <string name="addTask">Добавить задание</string>
+    <string name="goToCuratorsChat">Перейти к чату с куратором</string>
+    <string name="tasks">Задачи</string>
+    <string name="message">Сообщение</string>
+    <string name="fab">fab</string>
 </resources>

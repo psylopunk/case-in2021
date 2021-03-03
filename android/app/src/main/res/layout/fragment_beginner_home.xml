@@ -34,14 +34,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:text="Перейти к чату с куратором" />
+            android:text="@string/goToCuratorsChat" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/fab_margin"
             android:layout_marginTop="@dimen/fab_margin"
-            android:text="Задачи"
+            android:text="@string/tasks"
             android:textSize="24sp" />
 
         <androidx.recyclerview.widget.RecyclerView

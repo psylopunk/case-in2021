@@ -20,12 +20,10 @@ import io.socket.client.Socket
 import io.socket.emitter.Emitter
 import iooojik.casein.R
 import iooojik.casein.SocketEvents
+import iooojik.casein.StaticVars
 import iooojik.casein.localData.AppDatabase
 import iooojik.casein.localData.chatRooms.ChatRoomDao
 import iooojik.casein.web.models.MessageModel
-import iooojik.casein.StaticVars
-import iooojik.casein.localData.messages.MessageLocalModel
-import okhttp3.internal.notify
 import org.json.JSONObject
 import java.net.URISyntaxException
 import kotlin.concurrent.thread
@@ -68,8 +66,14 @@ class ChatRoomFragment : Fragment(), View.OnClickListener {
         mSocket.on(socketEvents.EVENT_CHAT_MESSAGE, onNewMessage)
         mSocket.on(socketEvents.EVENT_NOTIFICATION, Emitter.Listener {
             requireActivity().runOnUiThread {
-                setMessages()
+                Log.e("ttt", "tttt")
+                //setMessages()
+                val message = JSONObject(it[0].toString())
+                messagesList.reverse()
+                messagesList.add(message)
+                messagesList.reverse()
                 messagesListAdapter.notifyDataSetChanged()
+                Log.e("ttt", messagesList.toString())
             }
         })
     }
@@ -126,7 +130,11 @@ class ChatRoomFragment : Fragment(), View.OnClickListener {
         messagesList = getMessages() as ArrayList<JSONObject>
         messagesList.reverse()
         messageList = rootView.findViewById(R.id.messages_list)
-        messageList.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, true)
+        messageList.layoutManager = LinearLayoutManager(
+            requireContext(),
+            LinearLayoutManager.VERTICAL,
+            true
+        )
         messagesListAdapter = ChatListAdapter(messagesList, requireActivity())
         messageList.adapter = messagesListAdapter
     }
@@ -150,7 +158,10 @@ class ChatRoomFragment : Fragment(), View.OnClickListener {
 
     private fun setVars() {
         //получаение статичных переменных
-        preferences = requireActivity().getSharedPreferences(StaticVars().preferencesName, Context.MODE_PRIVATE)
+        preferences = requireActivity().getSharedPreferences(
+            StaticVars().preferencesName,
+            Context.MODE_PRIVATE
+        )
         myNickname = preferences.getString(StaticVars().PREFERENCES_CURRENT_USER_NICKNAME, "").toString()
         database = AppDatabase.getAppDataBase(requireContext())!!
         roomDao = database.chatRoomDao()
@@ -161,8 +172,12 @@ class ChatRoomFragment : Fragment(), View.OnClickListener {
             R.id.send_message_button -> {
                 //отправка сообщения
                 val messageField = requireView().findViewById<EditText>(R.id.message_text_field)
-                if (!messageField.text.isNullOrEmpty()){
-                    val message = MessageModel(messageField.text.toString(), uniqueRoomID, myNickname)
+                if (!messageField.text.isNullOrEmpty()) {
+                    val message = MessageModel(
+                        messageField.text.toString(),
+                        uniqueRoomID,
+                        myNickname
+                    )
                     mSocket.emit(socketEvents.EVENT_CHAT_MESSAGE, message.toJson())
 
                     //сохраняем полученное сообщение
@@ -184,16 +199,19 @@ class ChatRoomFragment : Fragment(), View.OnClickListener {
         //событие получения сообщения
         requireActivity().runOnUiThread {
             val data = JSONObject(args[0].toString())
-            addMessage(data)
+            //addMessage(data)
         }
     }
 
+    /*
     private fun addMessage(data: JSONObject) {
         //messagesList.add(data)
         //messagesListAdapter.notifyDataSetChanged()
         //сохраняем в сокет-сервисе
         //setMessages()
     }
+
+     */
 
     override fun onDestroy() {
         super.onDestroy()

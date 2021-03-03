@@ -68,13 +68,13 @@
                       </LayoutPositions>
                     </value>
                   </entry>
-                  <entry key="questFragment">
+                  <entry key="navigation_questFragment">
                     <value>
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="-169" />
-                            <option name="y" value="-464" />
+                            <option name="x" value="-327" />
+                            <option name="y" value="-148" />
                           </Point>
                         </option>
                       </LayoutPositions>

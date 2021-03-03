@@ -47,8 +47,21 @@ class MainActivity : AppCompatActivity() {
         socketService.startSocketService()
 
         //проверяем, авторизован ли пользователь
+        //переход в комнату с чатом
+        val args = Bundle()
+        //уникальный id чата - id текущего пользователя
+        args.putString("chatId", "28c4f366-1178-44f7-9542-6ad42f368f80")
+        //имя отправителя(для отображения в toolbar)
+        args.putString("sendTO", "f")
+        //переход на страницу с чатом
+        findNavController(R.id.nav_host_fragment).navigate(R.id.navigation_chat_room, args)
+
+        //findNavController(R.id.nav_host_fragment).navigate(R.id.navigation_questFragment)
+        /*
         if (isNotAuth()) findNavController(R.id.nav_host_fragment).navigate(R.id.navigation_authorization)
         else findNavController(R.id.nav_host_fragment).navigate(getHomeFragment())
+
+         */
     }
 
 

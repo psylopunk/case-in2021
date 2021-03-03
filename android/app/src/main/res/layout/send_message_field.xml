@@ -14,7 +14,7 @@
         android:layout_marginTop="1dp"
         android:layout_marginBottom="@dimen/custom_buttons_margin"
         android:layout_weight="2"
-        android:hint="Сообщение"
+        android:hint="@string/message"
         android:paddingHorizontal="10dp"
         app:boxStrokeColor="@color/colorText"
         app:boxStrokeWidth="1dp"

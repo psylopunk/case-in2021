@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.VERTICAL
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import iooojik.casein.R
 import iooojik.casein.StaticVars
 import iooojik.casein.localData.AppDatabase
@@ -27,6 +28,7 @@ import retrofit2.Callback
 import retrofit2.Response
 
 
+@Suppress("DEPRECATION")
 class BotFragment : Fragment(), View.OnClickListener {
 
     private lateinit var rootView : View
@@ -56,6 +58,7 @@ class BotFragment : Fragment(), View.OnClickListener {
         rootView.findViewById<TextView>(R.id.user_name_text_view).text = "Джарвис"
         rootView.findViewById<ImageView>(R.id.avatar).setImageResource(R.drawable.baseline_smart_toy_24)
         rootView.findViewById<ImageView>(R.id.send_message_button).setOnClickListener(this)
+        requireActivity().findViewById<FloatingActionButton>(R.id.fab).hide()
         database = AppDatabase.getAppDataBase(requireContext())!!
         database.chatBotMessageDao().deleteAll()
 
@@ -94,7 +97,7 @@ class BotFragment : Fragment(), View.OnClickListener {
 
     private fun getMessages() {
 
-        netModel.botApi.getMessages("0", "20", token).enqueue(object : Callback<List<MessagesResponse>> {
+        netModel.botApi.getMessages("0", "1000", token).enqueue(object : Callback<List<MessagesResponse>> {
             override fun onResponse(call: Call<List<MessagesResponse>>, response: Response<List<MessagesResponse>>) {
                 if (response.isSuccessful) {
                     val messages = response.body()

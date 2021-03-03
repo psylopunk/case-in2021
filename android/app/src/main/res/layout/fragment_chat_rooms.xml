@@ -28,7 +28,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             tools:itemCount="12"
-            tools:listitem="@layout/recycler_view_chat_room_item" />
+            tools:listitem="@layout/recycler_view_child_item" />
 
     </LinearLayout>
 

@@ -41,6 +41,7 @@ class BotChatAdapter (
             messageTextView.text = model.message
         }
 
+        holder.messageLayout.removeAllViews()
         holder.messageLayout.addView(view)
     }
 

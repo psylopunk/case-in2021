@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="qrCreateHint">Ваш текст</string>
+    <string name="hintScan">При нажатии на кнопку будет сканирован ближайший к центру QR-код.
+        Если вы хотите выбрать другой QR-код, то нажмите на него.</string>
+</resources>

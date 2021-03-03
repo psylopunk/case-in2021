@@ -1,0 +1,46 @@
+<resources>
+
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorAccent">@color/green</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="android:textColor">@color/colorText</item>
+        <item name="colorSecondary">@color/colorSecondary</item>
+        <item name="android:listDivider">@color/colorAccent</item>
+        <item name="colorOnSurface">@color/colorText</item>
+        <item name="colorSurface">@color/colorPrimaryDark</item>
+        <item name="android:textColorPrimary">@color/colorText</item>
+        <item name="android:textColorSecondary">@color/colorAccent</item>
+        <item name="android:fontFamily">@font/roboto_condensed_regular</item>
+    </style>
+
+    <style name="custom_text_buttons" parent="Widget.MaterialComponents.Button.TextButton">
+        <item name="android:textColor">@color/colorText</item>
+    </style>
+
+    <style name="custom_buttons" parent="Widget.MaterialComponents.Button">
+        <item name="android:textColor">@color/colorText</item>
+    </style>
+
+    <style name="MaterialAlertDialog.App.Title.Text" parent="MaterialAlertDialog.MaterialComponents.Title.Text">
+        <item name="android:textColor">@color/colorText</item>
+    </style>
+
+    <style name="Widget.App.Button" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
+        <item name="android:textColor">@color/colorText</item>
+    </style>
+
+    <style name="ThemeOverlay.App.Button" parent="">
+        <item name="colorPrimary">@color/orange</item>
+    </style>
+
+    <style name="custom_checkbox" parent="Theme.MaterialComponents.Light">
+        <item name="colorAccent">@color/green</item>
+    </style>
+
+    <style name="CheckboxStyle" parent="AppTheme">
+        <item name="colorAccent">@color/green</item>
+        <item name="android:textColorSecondary">@color/colorWarning</item>
+    </style>
+
+</resources>

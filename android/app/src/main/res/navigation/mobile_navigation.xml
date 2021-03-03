@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_beginner_home">
+
+
+    <fragment
+        android:id="@+id/navigation_authorization"
+        android:name="iooojik.casein.ui.auth.AuthorizationFragment"
+        android:label="fragment_authorization"
+        tools:layout="@layout/fragment_authorization" />
+
+    <fragment
+        android:id="@+id/navigation_chat_room"
+        android:name="iooojik.casein.ui.chat_room.ChatRoomFragment"
+        android:label="fragment_chat_room"
+        tools:layout="@layout/fragment_chat_room" />
+
+    <fragment
+        android:id="@+id/navigation_beginner_home"
+        android:name="iooojik.casein.ui.beginner.home.BeginnerProfileFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_beginner_home" />
+
+    <fragment
+        android:id="@+id/navigation_curator_home"
+        android:name="iooojik.casein.ui.curator.CuratorHomeFragment"
+        android:label="CuratorHomeFragment" />
+
+    <fragment
+        android:id="@+id/navigation_chat_rooms"
+        android:name="iooojik.casein.ui.curator.chat_rooms.ChatRoomsFragment"
+        android:label="ChatRoomsFragment" />
+    <fragment
+        android:id="@+id/navigation_questFragment"
+        android:name="iooojik.casein.ui.beginner.chatbot.BotFragment"
+        android:label="fragment_quest"
+        tools:layout="@layout/fragment_bot_chat" />
+
+
+</navigation>

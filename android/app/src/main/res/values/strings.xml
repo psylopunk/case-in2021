@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">Rely</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="search">Поиск</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="profile">Профиль</string>
+    <string name="messenger">Мессенджер</string>
+    <string name="qr">QR</string>
+    <string name="textview">TextView</string>
+    <string name="fio">ФИО</string>
+    <string name="add">Добавить</string>
+    <string name="task">Задание</string>
+    <string name="description">Описание</string>
+    <string name="cancel">Отменить</string>
+    <string name="delete">Удалить</string>
+    <string name="beginnersList">Список новых сотрудников:</string>
+    <string name="auth">Авторизация</string>
+    <string name="login">Логин</string>
+    <string name="password">Пароль</string>
+    <string name="signIn">Войти</string>
+    <string name="addChild">Добавить сотрудника</string>
+</resources>

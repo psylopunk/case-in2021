@@ -23,6 +23,7 @@ import iooojik.casein.SocketEvents
 import iooojik.casein.StaticVars
 import iooojik.casein.localData.AppDatabase
 import iooojik.casein.localData.chatRooms.ChatRoomDao
+import iooojik.casein.localData.messages.MessageLocalModel
 import iooojik.casein.web.models.MessageModel
 import org.json.JSONObject
 import java.net.URISyntaxException
@@ -66,14 +67,12 @@ class ChatRoomFragment : Fragment(), View.OnClickListener {
         mSocket.on(socketEvents.EVENT_CHAT_MESSAGE, onNewMessage)
         mSocket.on(socketEvents.EVENT_NOTIFICATION, Emitter.Listener {
             requireActivity().runOnUiThread {
-                Log.e("ttt", "tttt")
                 //setMessages()
                 val message = JSONObject(it[0].toString())
                 messagesList.reverse()
                 messagesList.add(message)
                 messagesList.reverse()
                 messagesListAdapter.notifyDataSetChanged()
-                Log.e("ttt", messagesList.toString())
             }
         })
     }
@@ -181,8 +180,8 @@ class ChatRoomFragment : Fragment(), View.OnClickListener {
                     mSocket.emit(socketEvents.EVENT_CHAT_MESSAGE, message.toJson())
 
                     //сохраняем полученное сообщение
-                    //val msgLocal = MessageLocalModel(null, messageField.text.toString(), uniqueRoomID, myNickname)
-                    //database.messageDao().insert(msgLocal)
+                    val msgLocal = MessageLocalModel(null, messageField.text.toString(), uniqueRoomID, myNickname)
+                    database.messageDao().insert(msgLocal)
 
                     messageField.text.clear()
                     messageField.clearFocus()

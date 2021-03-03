@@ -20,7 +20,6 @@ async def _get(request, json={}):
     ]
 
     for i, _user in enumerate(_users):
-        print(_user.get_depth())
         if _user.get_depth() != 2:
             continue
 
@@ -35,20 +34,31 @@ async def _get(request, json={}):
     )]
     for i, _user in enumerate(scoreboard):
         _user.place = i + 1
+    print('scoreboard', scoreboard, *[_user.score for _user in scoreboard], *[_user.login for _user in scoreboard])
 
-    relevant_number = next(i for i, _user in enumerate(scoreboard) if user == _user) # +1
+    try:
+        relevant_number = next(i for i, _user in enumerate(scoreboard) if user == _user) # +1
+    except Exception as e:
+        relevant_number = None
 
     formatted_scoreboard = []
-    for _user in scoreboard[
-        (relevant_number - 15) if (relevant_number - 15) >= 0 else None:
-        (relevant_number + 15) if (relevant_number + 14) <= len(scoreboard) else None
-    ]:
-        user_obj = _user.get_json()
-        user_obj['score'] = _user.score
-        user_obj['place'] = _user.place
-        formatted_scoreboard.append(user_obj)
+    if relevant_number:
+        for _user in scoreboard[
+            (relevant_number - 14) if (relevant_number - 14) >= 0 else None:
+            (relevant_number + 14) if (relevant_number + 14) <= len(scoreboard) else None
+        ]:
+            user_obj = _user.get_json()
+            user_obj['score'] = _user.score
+            user_obj['place'] = _user.place
+            formatted_scoreboard.append(user_obj)
+    else:
+        for _user in scoreboard[:100]:
+            user_obj = _user.get_json()
+            user_obj['score'] = _user.score
+            user_obj['place'] = _user.place
+            formatted_scoreboard.append(user_obj)
 
     return {
-        'place': relevant_number + 1,
+        'place': relevant_number + 1 if relevant_number else -1,
         'scoreboard': formatted_scoreboard
     }

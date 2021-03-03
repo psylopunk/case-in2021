@@ -1,6 +1,7 @@
 from storage import db
 from functions.generate_token import generate_token
 from functions.datetime_isoformat import to_isoformat
+from hashlib import sha256
 import time
 
 class User:
@@ -38,7 +39,7 @@ class User:
 
     # Authorization
     def handle_auth(self, password: str):
-        if not password == self.password:
+        if not sha256(password.encode('utf8')).digest() == self.password:
             raise Exception('Неверный пароль')
 
         token = generate_token()

@@ -1,5 +1,6 @@
 from storage import db
 from models import User
+from hashlib import sha256
 from uuid import uuid4
 
 def create_user(full_name: str, login: str, password: str, parent: User=None):
@@ -16,7 +17,7 @@ def create_user(full_name: str, login: str, password: str, parent: User=None):
         'id': f'{uuid4()}',
         'full_name': full_name,
         'login': login,
-        'password': password,
+        'password': sha256(password.encode('utf8')).digest(),
         'parent_id': parent.id if parent else None,
         'score': 0,
     }

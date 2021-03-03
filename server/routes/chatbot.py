@@ -39,4 +39,6 @@ async def send_message(request, json={}):
         incoming=True
     )
 
+    handle_message()
+
     return response.empty(status=200)

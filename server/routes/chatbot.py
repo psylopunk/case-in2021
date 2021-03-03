@@ -2,10 +2,11 @@ from .tasks import app
 from storage import db
 from .response_compile import response_compile
 from models import User, Task
-from functions import load_auth, from_isoformat, to_isoformat
+from functions import load_auth, from_isoformat, to_isoformat, handle_message
 from functions import send_message as _send_message
 from sanic import response
 from datetime import datetime
+import asyncio
 
 @app.route('/api/chatbot.getMessages', methods=['GET'])
 @response_compile()
@@ -38,5 +39,12 @@ async def send_message(request, json={}):
         json['message'],
         incoming=True
     )
+
+    handle_message(
+        user,
+        json['message']
+    )
+
+    await asyncio.sleep(0.5)
 
     return response.empty(status=200)

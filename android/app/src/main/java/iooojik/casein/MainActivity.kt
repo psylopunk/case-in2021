@@ -45,14 +45,10 @@ class MainActivity : AppCompatActivity() {
 
         //запускаем сервис подключения к сокетам
         socketService.startSocketService()
-        findNavController(R.id.nav_host_fragment).navigate(R.id.navigation_questFragment)
-        /*
+
         //проверяем, авторизован ли пользователь
         if (isNotAuth()) findNavController(R.id.nav_host_fragment).navigate(R.id.navigation_authorization)
         else findNavController(R.id.nav_host_fragment).navigate(getHomeFragment())
-
-         */
-
     }
 
 

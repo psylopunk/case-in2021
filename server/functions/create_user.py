@@ -20,6 +20,7 @@ def create_user(full_name: str, login: str, password: str, parent: User=None):
         'password': sha256(password.encode('utf8')).digest(),
         'parent_id': parent.id if parent else None,
         'score': 0,
+        'action': None,
     }
     r = db.users.insert_one(user_obj)
     user_obj['_id'] = r.inserted_id

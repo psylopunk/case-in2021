@@ -33,6 +33,8 @@ class User:
         self.parent_id = user_object['parent_id']
 
         self.score = user_object['score']
+        self.action = user_object['action']
+        self.data = user_object['data']
 
     def __eq__(self, other):
         return self.id == other.id
@@ -50,6 +52,18 @@ class User:
         })
 
         return token
+
+    def drop_action(self):
+        self.action = None
+        self.data = {}
+        db.users.update_one({
+            '_id': self._id
+        }, {
+            '$set': {
+                'action': self.action,
+                'data': self.data
+            }
+        })
 
     # Users chain system
     def get_parent(self):
@@ -87,11 +101,11 @@ class User:
         ]
         if tasks:
             return round(
-                sum([task['difficulty'] for task in tasks]) / len(tasks),
+                sum([*[task['difficulty'] for task in tasks], *[0.5]]) / (len(tasks) + 1),
                 3
             )
         else:
-            return 0
+            return 0.5
 
     # Remove user
     def drop(self):

@@ -34,7 +34,6 @@ async def _get(request, json={}):
     )]
     for i, _user in enumerate(scoreboard):
         _user.place = i + 1
-    print('scoreboard', scoreboard, *[_user.score for _user in scoreboard], *[_user.login for _user in scoreboard])
 
     try:
         relevant_number = next(i for i, _user in enumerate(scoreboard) if user == _user) # +1

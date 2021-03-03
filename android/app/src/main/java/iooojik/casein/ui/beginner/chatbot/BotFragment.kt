@@ -42,6 +42,7 @@ class BotFragment : Fragment(), View.OnClickListener {
     private lateinit var database: AppDatabase
     private lateinit var botChatAdapter: BotChatAdapter
     private var running = true
+    private var startUp = true
 
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
@@ -102,7 +103,7 @@ class BotFragment : Fragment(), View.OnClickListener {
                 if (response.isSuccessful) {
                     val messages = response.body()
                     if (messages != null) saveMessages(messages)
-                }
+                } else showStartKeyBoard(startUp)
             }
 
             override fun onFailure(call: Call<List<MessagesResponse>>, t: Throwable) {
@@ -133,19 +134,29 @@ class BotFragment : Fragment(), View.OnClickListener {
             val keyboard = list.last().keyboard
             if (keyboard != null) {
                 addKeyBoard(keyboard)
-            }
+            } else buttonsField.removeAllViews()
+        }
+    }
+
+    private fun showStartKeyBoard(start : Boolean){
+        if (messages.size == 0 && start){
+            startUp = false
+            addKeyBoard(arrayOf("/start"))
         }
     }
 
     private fun addKeyBoard(keyboard: Array<String>) {
+        buttonsField.removeAllViews()
         keyboard.forEach {
-            val button = requireActivity().layoutInflater.inflate(R.layout.button, null).findViewById<Button>(R.id.button)
+            val layout = requireActivity().layoutInflater.inflate(R.layout.button, null)
+            val button = layout.findViewById<Button>(R.id.button)
             button.text = it
             button.setOnClickListener {
                 val model = SendMessageModel()
                 model.message = keyboard.toString()
                 sendMessage(model)
             }
+            buttonsField.addView(layout)
         }
     }
 

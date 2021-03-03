@@ -26,6 +26,7 @@ import iooojik.casein.web.models.response.MessagesResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import kotlin.concurrent.thread
 
 
 @Suppress("DEPRECATION")
@@ -55,10 +56,14 @@ class BotFragment : Fragment(), View.OnClickListener {
 
     private fun initialize(){
         buttonsField = rootView.findViewById(R.id.buttons_field)
+
         rootView.findViewById<ImageView>(R.id.button_back).setOnClickListener(this)
         rootView.findViewById<TextView>(R.id.user_name_text_view).text = "Джарвис"
         rootView.findViewById<ImageView>(R.id.avatar).setImageResource(R.drawable.baseline_smart_toy_24)
         rootView.findViewById<ImageView>(R.id.send_message_button).setOnClickListener(this)
+        rootView.findViewById<ImageView>(R.id.show_keyboard).visibility = View.VISIBLE
+        rootView.findViewById<ImageView>(R.id.show_keyboard).setOnClickListener(this)
+
         requireActivity().findViewById<FloatingActionButton>(R.id.fab).hide()
         database = AppDatabase.getAppDataBase(requireContext())!!
         database.chatBotMessageDao().deleteAll()
@@ -71,22 +76,28 @@ class BotFragment : Fragment(), View.OnClickListener {
         preferences = requireActivity().getSharedPreferences(StaticVars().preferencesName, Context.MODE_PRIVATE)
         token = preferences.getString(StaticVars().PREFERENCES_CURRENT_USER_TOKEN, "").toString()
 
-        getMessages()
+        threadGetMessages()
 
         handler.post(object : Runnable {
             override fun run() {
                 if (running){
-                    getMessages()
+                    threadGetMessages()
                     handler.postDelayed(this, 3000)
                 }
             }
         })
     }
 
+    private fun threadGetMessages(){
+        thread {
+            getMessages()
+        }
+    }
+
     private fun sendMessage(sendMessageModel: SendMessageModel){
         netModel.botApi.sendMessage(sendMessageModel, token).enqueue(object : Callback<Any> {
             override fun onResponse(call: Call<Any>, response: Response<Any>) {
-                getMessages()
+                threadGetMessages()
             }
 
             override fun onFailure(call: Call<Any>, t: Throwable) {
@@ -102,8 +113,9 @@ class BotFragment : Fragment(), View.OnClickListener {
             override fun onResponse(call: Call<List<MessagesResponse>>, response: Response<List<MessagesResponse>>) {
                 if (response.isSuccessful) {
                     val messages = response.body()
-                    if (messages != null) saveMessages(messages)
-                } else showStartKeyBoard(startUp)
+                    if (messages != null) requireActivity().runOnUiThread {  saveMessages(messages) }
+                }
+                showStartKeyBoard(startUp)
             }
 
             override fun onFailure(call: Call<List<MessagesResponse>>, t: Throwable) {
@@ -131,7 +143,7 @@ class BotFragment : Fragment(), View.OnClickListener {
         }
 
         if (list.isNotEmpty()) {
-            val keyboard = list.last().keyboard
+            val keyboard = list[0].keyboard
             if (keyboard != null) {
                 addKeyBoard(keyboard)
             } else buttonsField.removeAllViews()
@@ -141,19 +153,19 @@ class BotFragment : Fragment(), View.OnClickListener {
     private fun showStartKeyBoard(start : Boolean){
         if (messages.size == 0 && start){
             startUp = false
-            addKeyBoard(arrayOf("/start"))
+            addKeyBoard(mutableListOf("/start"))
         }
     }
 
-    private fun addKeyBoard(keyboard: Array<String>) {
+    private fun addKeyBoard(keyboard: MutableList<String>) {
         buttonsField.removeAllViews()
-        keyboard.forEach {
+        keyboard.forEachIndexed { _, s ->
             val layout = requireActivity().layoutInflater.inflate(R.layout.button, null)
             val button = layout.findViewById<Button>(R.id.button)
-            button.text = it
+            button.text = s
             button.setOnClickListener {
                 val model = SendMessageModel()
-                model.message = keyboard.toString()
+                model.message = s
                 sendMessage(model)
             }
             buttonsField.addView(layout)
@@ -170,6 +182,7 @@ class BotFragment : Fragment(), View.OnClickListener {
 
                 val model = SendMessageModel()
                 val messageText = rootView.findViewById<EditText>(R.id.message_text_field)
+
                 if (!messageText.text.isNullOrEmpty()) {
                     model.message = messageText.text.toString()
                     sendMessage(model)
@@ -178,6 +191,12 @@ class BotFragment : Fragment(), View.OnClickListener {
                 messageText.text.clear()
                 messageText.clearFocus()
 
+            }
+
+            R.id.show_keyboard -> {
+                if (buttonsField.visibility == View.VISIBLE)
+                    buttonsField.visibility = View.GONE
+                else buttonsField.visibility = View.VISIBLE
             }
         }
     }

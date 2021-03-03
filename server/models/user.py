@@ -77,6 +77,21 @@ class User:
 
         return depth
 
+    def calculate_score(self):
+        tasks = [
+            task_obj for task_obj in db.tasks.find({
+                'employee_id': self.id,
+                'status': 'completed'
+            })
+        ]
+        if tasks:
+            return round(
+                sum([task['difficulty'] for task in tasks]) / len(tasks),
+                3
+            )
+        else:
+            return 0
+
     # Remove user
     def drop(self):
         db.users.delete_one({

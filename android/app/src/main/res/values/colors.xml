@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#1EB980</color>
+    <color name="colorPrimaryDark">#24242b</color>
+    <color name="colorSecondary">#33333d</color>
+    <color name="colorAccent">#33333d</color>
+    <color name="green">#1eb980</color>
+    <color name="darkGreen">#045d56</color>
+    <color name="orange">#ff6859</color>
+    <color name="yellow">#ffcf44</color>
+    <color name="purple">#b15dff</color>
+    <color name="blue">#72deff</color>
+    <color name="white">#FFF</color>
+
+    <color name="colorText">#FFF</color>
+
+    <color name="iconsColor">#fff</color>
+    <color name="colorWarning">#D32F2F</color>
+    <color name="colorCancel">#757575</color>
+
+    <color name="bottom_sheet_divider_color">#E3E1E1</color>
+
+</resources>

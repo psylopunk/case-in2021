@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/navigation_beginner_home"
+        android:icon="@drawable/baseline_account_circle_24"
+        android:title="@string/profile" />
+
+    <item
+        android:id="@+id/navigation_questFragment"
+        android:icon="@drawable/baseline_contact_support_24"
+        android:title="@string/qr" />
+</menu>

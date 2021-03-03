@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="ThemeOverlay.App.MaterialAlertDialog" parent="ThemeOverlay.MaterialComponents.MaterialAlertDialog">
+        <item name="materialAlertDialogTitleTextStyle">@style/MaterialAlertDialog.App.Title.Text</item>
+        <item name="buttonBarPositiveButtonStyle">@style/Widget.App.Button</item>
+        <item name="buttonBarNeutralButtonStyle">@style/Widget.App.Button</item>
+        <item name="buttonBarNegativeButtonStyle">@style/Widget.App.Button</item>
+
+    </style>
+
+    <style name="Widget.MaterialComponents.Snackbar" parent="">
+
+        <item name="android:layout_marginBottom">@dimen/bottom_navigation</item>
+        <item name="android:layout_marginStart">@dimen/small_components_dimen</item>
+        <item name="android:layout_marginEnd">@dimen/small_components_dimen</item>
+
+    </style>
+</resources>

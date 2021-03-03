@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="createButton">Создать</string>
+    <string name="shareButton">Поделиться</string>
+    <string name="scanButton">Сканировать</string>
+    <string name="createNewQrButton">Создать новый QR-код</string>
+    <string name="scanQRButton">Сканировать QR-код</string>
+    <string name="openInBrowserButton">Открыть в браузере</string>
+    <string name="copyTextButton">Скопировать текст</string>
+</resources>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:background="@color/colorPrimaryDark"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="1dp"
+        android:layout_marginBottom="@dimen/custom_buttons_margin"
+        android:layout_weight="2"
+        android:hint="Сообщение"
+        android:paddingHorizontal="10dp"
+        app:boxStrokeColor="@color/colorText"
+        app:boxStrokeWidth="1dp"
+        app:hintTextColor="@color/colorText">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/message_text_field"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <ImageView
+        android:id="@+id/send_message_button"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_gravity="center"
+        android:padding="@dimen/elements_margin"
+        app:boxStrokeWidth="0dp"
+        android:src="@drawable/baseline_send_24" />
+
+</LinearLayout>

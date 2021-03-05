@@ -38,6 +38,7 @@ async def _get(request, json={}):
     try:
         relevant_number = next(i for i, _user in enumerate(scoreboard) if user == _user) # +1
     except Exception as e:
+        print('rn', e)
         relevant_number = None
 
     formatted_scoreboard = []
@@ -58,6 +59,6 @@ async def _get(request, json={}):
             formatted_scoreboard.append(user_obj)
 
     return {
-        'place': relevant_number + 1 if relevant_number else -1,
+        'place': relevant_number + 1 if relevant_number != None else -1,
         'scoreboard': formatted_scoreboard
     }

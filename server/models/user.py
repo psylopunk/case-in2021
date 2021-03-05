@@ -34,7 +34,7 @@ class User:
 
         self.score = user_object['score']
         self.action = user_object['action']
-        self.data = user_object['data']
+        # self.data = user_object['data']
 
     def __eq__(self, other):
         return self.id == other.id
@@ -55,13 +55,13 @@ class User:
 
     def drop_action(self):
         self.action = None
-        self.data = {}
+        # self.data = {}
         db.users.update_one({
             '_id': self._id
         }, {
             '$set': {
                 'action': self.action,
-                'data': self.data
+                # 'data': self.data
             }
         })
 
@@ -74,7 +74,10 @@ class User:
             'id': self.parent_id
         })
 
-        return User(parent_object)
+        try:
+            return User(parent_object)
+        except Exception as e:
+            self.drop()
 
     def get_childs(self):
         return [

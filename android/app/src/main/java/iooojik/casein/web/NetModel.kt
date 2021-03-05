@@ -1,10 +1,7 @@
 package iooojik.casein.web
 
 import iooojik.casein.StaticVars
-import iooojik.casein.web.api.AuthorizationApi
-import iooojik.casein.web.api.BotApi
-import iooojik.casein.web.api.ChildApi
-import iooojik.casein.web.api.TasksApi
+import iooojik.casein.web.api.*
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -16,6 +13,7 @@ class NetModel {
     lateinit var childApi: ChildApi
     lateinit var tasksApi: TasksApi
     lateinit var botApi: BotApi
+    lateinit var scoreboardApi: ScoreboardApi
 
     init {
         doRetrofit()
@@ -30,5 +28,6 @@ class NetModel {
         childApi = retrofit.create(ChildApi::class.java)
         tasksApi = retrofit.create(TasksApi::class.java)
         botApi = retrofit.create(BotApi::class.java)
+        scoreboardApi = retrofit.create(ScoreboardApi::class.java)
     }
 }

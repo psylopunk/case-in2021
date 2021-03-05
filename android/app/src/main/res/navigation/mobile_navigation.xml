@@ -38,6 +38,11 @@
         android:name="iooojik.casein.ui.beginner.chatbot.BotFragment"
         android:label="fragment_quest"
         tools:layout="@layout/fragment_bot_chat" />
+    <fragment
+        android:id="@+id/navigation_rating"
+        android:name="iooojik.casein.ui.beginner.rating.RatingFragment"
+        android:label="fragment_rating"
+        tools:layout="@layout/fragment_rating" />
 
 
 </navigation>

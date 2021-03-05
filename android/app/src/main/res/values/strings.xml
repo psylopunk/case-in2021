@@ -26,4 +26,6 @@
     <string name="tasks">Задачи</string>
     <string name="message">Сообщение</string>
     <string name="fab">fab</string>
+    <string name="rating">Рейтинг</string>
+    <string name="quest">Квест</string>
 </resources>

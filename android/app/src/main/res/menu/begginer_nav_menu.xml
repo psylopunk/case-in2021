@@ -9,5 +9,10 @@
     <item
         android:id="@+id/navigation_questFragment"
         android:icon="@drawable/baseline_contact_support_24"
-        android:title="@string/qr" />
+        android:title="@string/quest" />
+
+    <item
+        android:id="@+id/navigation_rating"
+        android:icon="@drawable/baseline_contact_support_24"
+        android:title="@string/quest" />
 </menu>

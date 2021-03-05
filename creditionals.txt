@@ -1,0 +1,8 @@
+Администратор:
+admin:admin
+
+Куратор:
+iooojik:test
+
+Новый сотрудник:
+ekaterina:test

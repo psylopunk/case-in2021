@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import iooojik.casein.LogMessages
 import iooojik.casein.background.process.WebSocketsService
 
+@Suppress("DEPRECATION")
 class SocketService(private val activity: Activity, private val serviceIntent: Intent) {
 
     private val logMessages = LogMessages()

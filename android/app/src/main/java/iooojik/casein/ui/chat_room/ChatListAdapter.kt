@@ -21,7 +21,9 @@ class ChatListAdapter(private val messages: List<JSONObject>, private val activi
     private val myNickname = preferences.getString(StaticVars().PREFERENCES_CURRENT_USER_NICKNAME, "")
     private val inflater = activity.layoutInflater
 
-
+    init {
+        setHasStableIds(true)
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(inflater.inflate(R.layout.recycler_view_message_item, parent, false))
@@ -49,20 +51,8 @@ class ChatListAdapter(private val messages: List<JSONObject>, private val activi
             messageTextView.text = message.getString("message")
             val senderName = view.findViewById<TextView>(R.id.name)
             senderName.text = message.getString("sender")
-            val avatar = view.findViewById<View>(R.id.avatar)
-
-            /*
-            if (position - 1 >= 0){
-                val message1 = messages[position - 1]
-                if (message1.getString("sender") == message.getString("sender")){
-                    senderName.visibility = View.GONE
-                    avatar.visibility = View.INVISIBLE
-                }
-            }
-
-             */
-
         }
+        holder.messageLayout.removeAllViews()
         holder.messageLayout.addView(view)
     }
 

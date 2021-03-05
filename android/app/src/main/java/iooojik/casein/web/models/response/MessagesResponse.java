@@ -3,6 +3,8 @@ package iooojik.casein.web.models.response;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+
 public class MessagesResponse {
 
     @SerializedName("id")
@@ -13,7 +15,7 @@ public class MessagesResponse {
     private String message;
     @SerializedName("keyboard")
     @Expose
-    private String[] keyboard;
+    private List<String> keyboard = null;
     @SerializedName("incoming")
     @Expose
     private Boolean incoming;
@@ -37,6 +39,14 @@ public class MessagesResponse {
         this.message = message;
     }
 
+    public List<String> getKeyboard() {
+        return keyboard;
+    }
+
+    public void setKeyboard(List<String> keyboard) {
+        this.keyboard = keyboard;
+    }
+
     public Boolean getIncoming() {
         return incoming;
     }
@@ -51,13 +61,5 @@ public class MessagesResponse {
 
     public void setCreated(String created) {
         this.created = created;
-    }
-
-    public String[] getKeyboard() {
-        return keyboard;
-    }
-
-    public void setKeyboard(String[] keyboard) {
-        this.keyboard = keyboard;
     }
 }

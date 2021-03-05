@@ -89,14 +89,14 @@ class AuthorizationFragment : Fragment(), View.OnClickListener {
     }
 
     private fun saveInformation(model: LoginResponse, password: String) {
-        saveToSharedPreferences(model, password)
+        saveToSharedPreferences(model)
     }
 
     private fun getHomeFragment() : Int{
         return preferences.getInt(StaticVars().PREFERENCES_CURRENT_USER_START_FRAGMENT, R.id.navigation_beginner_home)
     }
 
-    private fun saveToSharedPreferences(model: LoginResponse, password: String) {
+    private fun saveToSharedPreferences(model: LoginResponse) {
         //записываем данные в SharedPreferences
 
         //сохранение логина

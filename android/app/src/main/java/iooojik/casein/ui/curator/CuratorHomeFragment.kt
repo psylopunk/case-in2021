@@ -27,6 +27,7 @@ import retrofit2.Response
 import java.lang.Exception
 import kotlin.concurrent.thread
 
+
 class CuratorHomeFragment : Fragment(), View.OnClickListener {
 
     lateinit var rootView : View
@@ -117,7 +118,7 @@ class CuratorHomeFragment : Fragment(), View.OnClickListener {
 
                     childs?.forEachIndexed { _, child ->
 
-                        childsList.forEachIndexed { index, childModel ->
+                        childsList.forEachIndexed { _, childModel ->
 
                             //проверяем совпадения по логину
                             //если есть совпадения, то идём дальше, иначе добавляем модельки в бд
@@ -170,20 +171,6 @@ class CuratorHomeFragment : Fragment(), View.OnClickListener {
                 Log.e("getChilds error", t.toString())
             }
         })
-    }
-
-    private fun isChildModelInInLocalData(childModel : Child) : Boolean{
-        val status: Boolean
-        val foundModel : ChildModel = database.childModelDao().getByModelID(childModel.id)
-        status = foundModel == null
-        return status
-    }
-
-    private fun isRoomModelInInLocalData(roomModel : Child) : Boolean{
-        val status: Boolean
-        val foundModel : ChatRoomModel = database.chatRoomDao().getByUniqueID(roomModel.id)
-        status = foundModel == null
-        return status
     }
 
     override fun onClick(v: View?) {

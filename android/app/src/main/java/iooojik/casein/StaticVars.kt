@@ -5,7 +5,7 @@ package iooojik.casein
 class StaticVars {
     //название настроек
     val preferencesName = "MAIN PREFERENCES"
-    val SOCKET_URL = "http://192.168.0.105:3000"
+    val SOCKET_URL = "http://188.127.254.149:3000"
     val API_URL = "http://157.230.123.200:8787"
     val NOTIFICATIONS_CHANNEL = "NOTIFICATIONS_CHANNEL"
     val NOTIFICATION_ID = 102
